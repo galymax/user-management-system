@@ -1,5 +1,4 @@
 import User from '../models/User.js';
-import Role from '../models/Role.js';
 
 export const createUser = async (req, res) => {
     try {
