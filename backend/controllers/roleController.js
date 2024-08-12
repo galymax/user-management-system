@@ -19,6 +19,17 @@ export const getRoles = async (req, res) => {
     }
 };
 
+export const getRole = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const role = await Role.findById(id).populate('permissions');
+        if (!role) return res.status(404).json({ message: 'Role not found' });
+        res.json(role);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 export const deleteRole = async (req, res) => {
     try {
         const role = await Role.findByIdAndDelete(req.params.id);

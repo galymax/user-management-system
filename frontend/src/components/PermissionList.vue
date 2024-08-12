@@ -1,62 +1,62 @@
 <template>
   <div>
-    <h2>Permissions</h2>
     <v-data-table
       :headers="headers"
       :items="permissions"
       :items-per-page="5"
       class="elevation-1"
     >
-      <template v-slot:top>
+      <template #top>
         <v-toolbar flat>
           <v-toolbar-title>Permission Management</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ props }">
-              <v-btn color="primary" dark class="mb-2" v-bind="props">
-                New Permission
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h5">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.name" label="Permission name"></v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <v-btn color="primary" class="mb-2" @click="openDialog()">
+            New Permission
+          </v-btn>
         </v-toolbar>
       </template>
+
       <template #[`item.actions`]="{ item }">
-        <v-icon size="small" @click="deleteItem(item)">
+        <v-icon small class="mr-2" @click="deleteItem(item)">
           mdi-delete
         </v-icon>
       </template>
     </v-data-table>
+
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">{{ formTitle }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field v-model="editedItem.name" label="Permission name"></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialogDelete" max-width="500px">
+      <v-card>
+        <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -115,6 +115,12 @@ const deleteItemConfirm = async () => {
   }
 };
 
+const openDialog = () => {
+  editedIndex.value = -1;
+  editedItem.value = Object.assign({}, defaultItem);
+  dialog.value = true;
+};
+
 const close = () => {
   dialog.value = false;
   editedIndex.value = -1;
@@ -137,3 +143,23 @@ const save = async () => {
   }
 };
 </script>
+
+<style scoped>
+.v-data-table :deep(.v-data-table__wrapper) > table > tbody > tr > td,
+.v-data-table :deep(.v-data-table__wrapper) > table > thead > tr > th {
+  padding: 0 16px;
+}
+
+.v-data-table :deep(.v-data-table__wrapper) > table > tbody > tr > td:last-child {
+  padding-right: 0;
+}
+
+.v-icon.v-icon--size-default {
+  font-size: 20px;
+}
+
+.v-data-table :deep(.v-data-table__wrapper) > table > thead > tr > th {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+</style>
