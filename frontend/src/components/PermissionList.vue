@@ -98,14 +98,12 @@ const initialize = async () => {
 };
 
 const deleteItem = (item) => {
-  console.log('Deleting item:', item);
   editedIndex.value = permissions.value.indexOf(item);
   editedItem.value = Object.assign({}, item);
   dialogDelete.value = true;
 };
 
 const deleteItemConfirm = async () => {
-  console.log('Confirm deleting item:', editedItem.value);
   try {
     await axios.delete(`http://localhost:3000/api/permissions/${editedItem.value._id}`);
     permissions.value.splice(editedIndex.value, 1);
