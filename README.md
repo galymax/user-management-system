@@ -17,7 +17,7 @@ This User Management System is a full-stack application that allows for the crea
 ## Features
 
 - User account management (create, read, update, delete)
-- Role management (create, read, update, delete)
+- Role management (create, read, delete)
 - Permission management (create, read, delete)
 - Assign roles to users
 - Assign permissions to roles
@@ -116,6 +116,7 @@ If you prefer to run the application without Docker, follow these steps:
 - Roles:
   - GET /api/roles - List all roles
   - POST /api/roles - Create a new role
+  - GET /api/roles/:id - Get a specific role
   - DELETE /api/roles/:id - Delete a role
   - POST /api/roles/:id/permissions - Assign permissions to a role
 
