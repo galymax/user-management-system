@@ -81,7 +81,7 @@ const formTitle = computed(() => {
 
 const headers = [
   { title: 'Name', key: 'name' },
-  { title: 'Actions', key: 'actions', sortable: false },
+  { title: 'Actions', key: 'actions', sortable: false, width: '150px'},
 ];
 
 onMounted(async () => {
@@ -143,23 +143,3 @@ const save = async () => {
   }
 };
 </script>
-
-<style scoped>
-.v-data-table :deep(.v-data-table__wrapper) > table > tbody > tr > td,
-.v-data-table :deep(.v-data-table__wrapper) > table > thead > tr > th {
-  padding: 0 16px;
-}
-
-.v-data-table :deep(.v-data-table__wrapper) > table > tbody > tr > td:last-child {
-  padding-right: 0;
-}
-
-.v-icon.v-icon--size-default {
-  font-size: 20px;
-}
-
-.v-data-table :deep(.v-data-table__wrapper) > table > thead > tr > th {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-</style>
